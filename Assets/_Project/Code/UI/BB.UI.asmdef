@@ -1,0 +1,19 @@
+{
+    "name": "BB.UI",
+    "rootNamespace": "BB.UI",
+    "references": [
+        "BB.Data",
+        "BB.Simulation",
+        "BB.Core",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
