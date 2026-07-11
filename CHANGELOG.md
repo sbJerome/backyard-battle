@@ -3,6 +3,11 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.1 — 2026-07-11
+
+- CI: fix `runs-on` labels (`docker` → `ubuntu-latest`) so the Forgejo Actions
+  runner actually claims the validate job
+
 ## v0.1.0 — 2026-07-11
 
 Initial project foundation (Milestone M0, in progress):

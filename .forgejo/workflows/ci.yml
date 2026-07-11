@@ -7,7 +7,7 @@ on:
 jobs:
   # Always-on structural checks — no Unity license needed.
   validate:
-    runs-on: docker
+    runs-on: ubuntu-latest
     container:
       image: alpine:3.20
     steps:
@@ -41,7 +41,7 @@ jobs:
   # provisioned: set repo variable UNITY_CI_ENABLED=true and secret UNITY_LICENSE
   # (contents of the .ulf) to enable. See docs/PLAN.md §VCS & CI.
   unity-tests:
-    runs-on: docker
+    runs-on: ubuntu-latest
     if: ${{ vars.UNITY_CI_ENABLED == 'true' }}
     container:
       image: unityci/editor:ubuntu-6000.0.47f1-linux-il2cpp-3
