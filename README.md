@@ -1,6 +1,6 @@
 # Backyard Battle
 
-**v0.1.1**
+**v0.1.2**
 
 A multiplayer party platform brawler set in **The Great Backyonder** — the Finch
 family backyard as seen from bug's-eye view. Eight-year-old **Max Finch** pits
@@ -66,10 +66,10 @@ scripts/build.sh server-image     # linux-server + podman build → backyard-bat
 
 ## CI
 
-Forgejo Actions runs asmdef/JSON validation always; Unity compile + EditMode/PlayMode
-tests run once the `UNITY_LICENSE` secret is configured and the `UNITY_CI_ENABLED`
-repo variable is `true` (see `.forgejo/workflows/ci.yml`). Player builds are local
-by design during the demo phase.
+Forgejo Actions runs asmdef/JSON validation and simulation-purity checks on every
+push (`.forgejo/workflows/ci.yml`). Unity EditMode tests are a manual-dispatch
+workflow (`unity-tests.yml`) until the `UNITY_LICENSE` secret is provisioned.
+Player builds are local by design during the demo phase.
 
 ## License note
 

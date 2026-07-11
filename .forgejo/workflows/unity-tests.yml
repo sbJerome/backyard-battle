@@ -1,0 +1,31 @@
+# Unity compile + EditMode tests. Manual-dispatch only until the Personal
+# license is provisioned (secret UNITY_LICENSE = contents of the .ulf file).
+# Once the flow is proven, add a push trigger. See docs/PLAN.md §VCS & CI.
+name: unity-tests
+on:
+  workflow_dispatch:
+
+jobs:
+  editmode:
+    runs-on: ubuntu-latest
+    container:
+      image: unityci/editor:ubuntu-6000.0.47f1-linux-il2cpp-3
+    steps:
+      - name: Checkout (manual — no node in the unityci image)
+        run: |
+          git clone --depth 1 --branch "${GITHUB_REF_NAME:-main}" \
+            "http://${GITHUB_TOKEN}@10.50.0.47/${GITHUB_REPOSITORY}.git" .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Activate license
+        run: |
+          mkdir -p ~/.local/share/unity3d/Unity
+          echo "$UNITY_LICENSE" > ~/.local/share/unity3d/Unity/Unity_lic.ulf
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      - name: EditMode tests
+        run: |
+          unity-editor -batchmode -projectPath . -logFile - \
+            -runTests -testPlatform EditMode -testResults /tmp/results.xml || status=$?
+          cat /tmp/results.xml || true
+          exit ${status:-0}

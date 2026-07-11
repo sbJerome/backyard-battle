@@ -3,6 +3,14 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.2 — 2026-07-11
+
+- CI: validate job now runs on the runner's default image (alpine container had
+  no node for actions/checkout); JSON/layering checks rewritten in node
+- CI: Unity EditMode tests split into a manual-dispatch workflow
+  (`unity-tests.yml`) until license provisioning; removes the broken `vars`
+  gate and the node-less unityci checkout failure
+
 ## v0.1.1 — 2026-07-11
 
 - CI: fix `runs-on` labels (`docker` → `ubuntu-latest`) so the Forgejo Actions

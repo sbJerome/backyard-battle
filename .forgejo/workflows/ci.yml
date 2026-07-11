@@ -6,29 +6,28 @@ on:
 
 jobs:
   # Always-on structural checks — no Unity license needed.
+  # Runs on the runner's default catthehacker image (node available for actions).
   validate:
     runs-on: ubuntu-latest
-    container:
-      image: alpine:3.20
     steps:
-      - name: Install tools
-        run: apk add --no-cache git jq python3 bash
       - uses: actions/checkout@v4
       - name: Validate JSON (asmdefs, manifest, inputactions)
         run: |
           set -e
           for f in $(find Assets Packages -name '*.asmdef' -o -name 'manifest.json' -o -name '*.inputactions'); do
-            jq empty "$f" || { echo "INVALID JSON: $f"; exit 1; }
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || { echo "INVALID JSON: $f"; exit 1; }
             echo "ok: $f"
           done
-      - name: Check asmdef layering (Simulation must not reference Core/UI/Netcode/Presentation)
+      - name: Check asmdef layering (Simulation must stay pure)
         run: |
           set -e
-          refs=$(jq -r '.references[]' Assets/_Project/Code/Simulation/BB.Simulation.asmdef)
-          echo "BB.Simulation references: $refs"
-          for bad in BB.Core BB.UI BB.Netcode BB.Presentation Unity.InputSystem; do
-            echo "$refs" | grep -qx "$bad" && { echo "LAYERING VIOLATION: BB.Simulation → $bad"; exit 1; } || true
-          done
+          node -e '
+            const refs = JSON.parse(require("fs").readFileSync("Assets/_Project/Code/Simulation/BB.Simulation.asmdef","utf8")).references;
+            console.log("BB.Simulation references:", refs);
+            const banned = ["BB.Core","BB.UI","BB.Netcode","BB.Presentation","Unity.InputSystem"];
+            const bad = refs.filter(r => banned.includes(r));
+            if (bad.length) { console.error("LAYERING VIOLATION: BB.Simulation →", bad); process.exit(1); }
+          '
       - name: Forbid device/time reads inside BB.Simulation
         run: |
           set -e
@@ -36,31 +35,3 @@ jobs:
             echo "BB.Simulation must consume InputSnapshot only (netcode/rollback contract)"; exit 1
           fi
           echo "simulation purity ok"
-
-  # Unity compile + EditMode tests. Off until the Personal license secret is
-  # provisioned: set repo variable UNITY_CI_ENABLED=true and secret UNITY_LICENSE
-  # (contents of the .ulf) to enable. See docs/PLAN.md §VCS & CI.
-  unity-tests:
-    runs-on: ubuntu-latest
-    if: ${{ vars.UNITY_CI_ENABLED == 'true' }}
-    container:
-      image: unityci/editor:ubuntu-6000.0.47f1-linux-il2cpp-3
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cache Library
-        uses: actions/cache@v4
-        with:
-          path: Library
-          key: unity-library-${{ hashFiles('Packages/manifest.json') }}
-      - name: Activate license
-        run: |
-          mkdir -p ~/.local/share/unity3d/Unity
-          echo "$UNITY_LICENSE" > ~/.local/share/unity3d/Unity/Unity_lic.ulf
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      - name: EditMode tests
-        run: |
-          unity-editor -batchmode -projectPath . -logFile - \
-            -runTests -testPlatform EditMode -testResults /tmp/results.xml || status=$?
-          cat /tmp/results.xml || true
-          exit ${status:-0}
