@@ -29,8 +29,8 @@ namespace BB.Simulation
         const int MaxOverlaps = 32;
 
         readonly Collider[] _overlaps = new Collider[MaxOverlaps];
-        /// <summary>Victims already hit by the current activation, per attacker.</summary>
-        readonly Dictionary<FighterController, HashSet<FighterController>> _alreadyHit = new();
+        /// <summary>Victims already hit by the current activation, per attacker (keyed by activation id).</summary>
+        readonly Dictionary<FighterController, (ushort activationId, HashSet<FighterController> victims)> _alreadyHit = new();
 
         /// <summary>Raised once per landed hit, after state is applied. Presentation and netcode subscribe.</summary>
         public event System.Action<HitEvent> OnHit;
@@ -42,7 +42,11 @@ namespace BB.Simulation
             if (attack == null || attack.hitboxes == null) return;
 
             int attackTick = attacker.State.stateTicks;
-            if (attackTick == 0) _alreadyHit.Remove(attacker); // new activation
+            // New activation → drop the stale dedupe set (tick counts start at 1
+            // by the time hits resolve, so never key this off attackTick == 0).
+            if (_alreadyHit.TryGetValue(attacker, out var entry) &&
+                entry.activationId != attacker.State.attackActivationId)
+                _alreadyHit.Remove(attacker);
 
             for (int i = 0; i < attack.hitboxes.Length; i++)
             {
@@ -64,9 +68,9 @@ namespace BB.Simulation
                 var victim = hurtbox.owner;
                 if (victim == attacker) continue;
 
-                if (!_alreadyHit.TryGetValue(attacker, out var set))
-                    _alreadyHit[attacker] = set = new HashSet<FighterController>();
-                if (!set.Add(victim)) continue; // already hit by this activation
+                if (!_alreadyHit.TryGetValue(attacker, out var entry2))
+                    _alreadyHit[attacker] = entry2 = (attacker.State.attackActivationId, new HashSet<FighterController>());
+                if (!entry2.victims.Add(victim)) continue; // already hit by this activation
 
                 var scaled = window;
                 scaled.damage *= hurtbox.damageMultiplier;

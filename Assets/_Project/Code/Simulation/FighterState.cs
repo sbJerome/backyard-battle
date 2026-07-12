@@ -37,6 +37,8 @@ namespace BB.Simulation
 
         /// <summary>Index into FighterDefinition.attacks while stateId == Attack; -1 otherwise.</summary>
         public short attackIndex;
+        /// <summary>Increments on every attack start; HitResolver keys hit-dedupe on it.</summary>
+        public ushort attackActivationId;
 
         public float percent;
         public byte stocks;

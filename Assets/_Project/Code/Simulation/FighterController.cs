@@ -133,7 +133,11 @@ namespace BB.Simulation
             {
                 bool special = input.WasPressed(FighterButtons.Special, State.previousInput);
                 var attack = def.FindAttack(MapAttackInput(input, special));
-                if (attack != null) BeginAttack(attack);
+                if (attack != null)
+                {
+                    BeginAttack(attack);
+                    return; // don't let the movement-state update below stomp the attack
+                }
             }
 
             SetState(State.grounded
@@ -199,6 +203,7 @@ namespace BB.Simulation
         void BeginAttack(AttackDefinition attack)
         {
             State.attackIndex = (short)System.Array.IndexOf(Definition.attacks, attack);
+            State.attackActivationId++; // lets HitResolver reset its per-activation dedupe
             SetState(FighterStateId.Attack);
         }
 

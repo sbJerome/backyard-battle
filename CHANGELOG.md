@@ -3,6 +3,17 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.5 — 2026-07-11
+
+- Fix: pressing Attack did nothing — `TickMovement` unconditionally reset the
+  movement state on the same tick `BeginAttack` entered the Attack state,
+  cancelling every attack instantly (found in first Windows playtest)
+- Fix: hit dedupe never reset between attack activations (reset keyed on
+  attack tick 0, which is unreachable at resolve time) — repeat attacks against
+  the same victim would whiff; dedupe now keys on a per-activation id
+- Tests: FighterController regression suite (attack state persists/ends,
+  activation id increments, ApplyHit launches, KO/respawn) — 19 total
+
 ## v0.1.4 — 2026-07-11
 
 - Unity 6000.0.79f1 installed (headless via Hub under Xvfb) with Linux IL2CPP,
