@@ -38,7 +38,13 @@ namespace BB.Presentation
 
         void LateUpdate()
         {
-            if (_targets.Count == 0) return;
+            // Self-acquire from a live match so scenes need no explicit wiring.
+            if (_targets.Count == 0)
+            {
+                var match = FindAnyObjectByType<BB.Core.MatchController>();
+                if (match?.Simulation == null) return;
+                SetTargets(match.Simulation.Fighters, match.Simulation.Stage.cameraBounds);
+            }
 
             Vector2 min = new(float.MaxValue, float.MaxValue);
             Vector2 max = new(float.MinValue, float.MinValue);

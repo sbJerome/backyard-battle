@@ -4,7 +4,12 @@
     "references": [
         "BB.Data",
         "BB.Simulation",
-        "BB.Core"
+        "BB.Core",
+        "BB.Presentation",
+        "BB.UI",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [
         "Editor"

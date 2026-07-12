@@ -3,6 +3,19 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.3 — 2026-07-11
+
+- Editor bootstrap: `BB.Editor.ProjectBootstrap.Run` generates layers
+  (Fighter/Hurtbox/Stage), URP pipeline assets, greybox material, Chip + Dummy
+  fighters (attack assets, prefabs with wired hurtboxes), Stage_Greybox
+  definition + scene (geometry, camera, match harness), Boot/MainMenu/Lobby
+  scenes, and build settings — fully headless-runnable
+- `DevMatchStarter`: dev harness that starts a match on Play (P1 device input,
+  N training-dummy bots) — the M1 gate loop
+- `BrawlCamera` self-acquires targets from the live match (fixes a would-be
+  circular assembly reference from Core → Presentation)
+- ProjectVersion pinned to 6000.0.79f1 (latest 6000.0 LTS, matches installed editor)
+
 ## v0.1.2 — 2026-07-11
 
 - CI: validate job now runs on the runner's default image (alpine container had
