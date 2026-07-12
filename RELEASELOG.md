@@ -2,6 +2,7 @@
 
 | Version | Date | Milestone | Notes |
 |---------|------|-----------|-------|
+| v0.1.7 | 2026-07-11 | M1 | Screenshake+hitsparks, input buffering, faster movement, brawler design pivot in GDD. |
 | v0.1.6 | 2026-07-11 | M1 | Bots fight back (SimpleBotBrain + aggression); knockback launch speed retuned ~3x softer. |
 | v0.1.5 | 2026-07-11 | M1 | First playtest fixes: attacks actually come out; repeat-hit dedupe corrected; motor regression tests. |
 | v0.1.4 | 2026-07-11 | M0 ✅ → M1 | Editor installed + licensed; bootstrap ran; M1 sandbox playable in-editor; tests 14/14. |

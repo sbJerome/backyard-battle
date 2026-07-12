@@ -296,6 +296,37 @@ From bug's-eye view, the Finch family backyard isn't a backyard — it's **The G
 
 ---
 
+## 4.5 COMBAT DIRECTION v2 — THE BRAWLER PIVOT (2026-07-11 playtest)
+
+First-playtest verdict from the creator: pure Smash-formula combat reads as a
+clone and isn't what makes Backyard Battle special. The mode is a **brawler**
+first — mix in Power Stone (Dreamcast), Street Fighter, and Streets of Rage:
+
+- **Power Stone influence — the arena is a toybox.** Backyard pickups spawn
+  mid-match and are the star: an acorn (throwable), a rubber band (slingshot),
+  a firecracker (Max is not allowed to have those, which is why it's exciting),
+  a juice-box straw (spear). Fighting over pickups IS the mid-match drama, the
+  way stones are in Power Stone. Prototype next: one throwable pickup type on
+  Stage_Greybox.
+- **Street Fighter influence — strings, not singles.** Attacks chain: jab-jab
+  builds into tilt enders; input buffering (shipped v0.1.7) makes mashing feel
+  responsive. Specials stay big and readable, not motion-input gated —
+  direction + button, party-game accessible.
+- **Streets of Rage influence — crowd brawling.** Multiple opponents should
+  feel great to fight simultaneously: attacks hit everyone in the arc, launched
+  fighters knock down other fighters they collide with (bowling-ball moments),
+  and getting surrounded is the core danger.
+- **Identity stays:** damage % + ring-out KOs remain the win condition for now
+  (they're the "played with toys near a table edge" fantasy), but knockback is
+  tuned so kills come from openings and edge play, not random pokes. Health-bar
+  or hybrid modes are an experiment for Recess/minigames later, not the core.
+- **The Imagination Meter (super concept, later):** landing hits fills a
+  crayon-scribble meter; full meter = Max "makes up a new rule" — the fighter's
+  super, narrated by kid voice ("and THEN the pebble turned into a COMET").
+
+Every combat feature from v0.1.7 forward gets judged against "is this a toy
+brawl?" not "is this how Smash does it."
+
 ## 5. GAME FEEL PILLARS
 
 1. **Chaos is fair.** Every hazard telegraphs (2s minimum, audio + visual), every random has a readable pattern, every death is your fault in hindsight. 6-player pandemonium must never feel like the game rolled dice at you — it should feel like you laughed too long at someone else's KO.

@@ -351,11 +351,14 @@ MonoBehaviour:
     stateId: 0
     stateTicks: 0
     attackIndex: 0
+    attackActivationId: 0
     percent: 0
     stocks: 0
     hitstunTicks: 0
     hitstopTicks: 0
     intangibleTicks: 0
+    bufferedAttack: 0
+    bufferTicks: 0
     previousInput:
       moveX: 0
       moveY: 0

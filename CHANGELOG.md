@@ -3,6 +3,22 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.7 — 2026-07-11
+
+- Juice: screenshake on hit (Perlin trauma shake on BrawlCamera, scaled by
+  damage) + hitspark flashes at contact point (`MatchJuice`); sim-side hitstop
+  already freezes both fighters on contact
+- Feel: input buffering (12 ticks) — attack presses during a current attack
+  chain into the next move the tick recovery ends (SF-style strings); this was
+  the "sometimes jab does nothing" bug: presses mid-recovery were eaten
+- Feel: respawn intangibility halved (2s → 1s) — the other "jab did nothing"
+  case was hitting a still-invulnerable respawned fighter
+- Movement: brawler retune — Chip run 5.5→7.5, air drift 3.5→5.2, jump 13→14,
+  ground acceleration ~2.5x (near-instant direction changes), all fighters
+- GDD: new "Combat Direction v2 — the Brawler Pivot" section (Power Stone
+  pickups, SF strings, Streets of Rage crowd brawling; ring-outs stay, Smash
+  imitation doesn't) — per first-playtest feedback
+
 ## v0.1.6 — 2026-07-11
 
 - Bots fight back: new `SimpleBotBrain` (chases nearest opponent, mixes jabs

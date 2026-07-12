@@ -27,7 +27,15 @@ namespace BB.Presentation
         Camera _camera;
         Vector3 _smoothVelocity;
 
+        [Header("Shake")]
+        public float maxShake = 0.6f;
+        public float shakeDecay = 2.2f;
+        float _trauma;
+
         void Awake() => _camera = GetComponent<Camera>();
+
+        /// <summary>Add shake energy (0..1); stacks and decays. Squared response keeps small hits subtle.</summary>
+        public void AddShake(float trauma) => _trauma = Mathf.Clamp01(_trauma + trauma);
 
         public void SetTargets(IReadOnlyList<FighterController> fighters, Rect cameraBounds)
         {
@@ -75,7 +83,24 @@ namespace BB.Presentation
                 clampedHalfHeight / Mathf.Tan(_camera.fieldOfView * 0.5f * Mathf.Deg2Rad));
 
             Vector3 target = new(center.x, center.y, -distance);
-            transform.position = Vector3.SmoothDamp(transform.position, target, ref _smoothVelocity, smoothTime);
+            Vector3 smoothed = Vector3.SmoothDamp(transform.position - _lastShakeOffset, target, ref _smoothVelocity, smoothTime);
+
+            // Perlin-driven shake offset — presentation only, never touches the sim.
+            _lastShakeOffset = Vector3.zero;
+            if (_trauma > 0f)
+            {
+                float amount = _trauma * _trauma * maxShake;
+                float t = Time.time * 25f;
+                _lastShakeOffset = new Vector3(
+                    (Mathf.PerlinNoise(t, 0.5f) - 0.5f) * 2f * amount,
+                    (Mathf.PerlinNoise(0.5f, t) - 0.5f) * 2f * amount,
+                    0f);
+                _trauma = Mathf.Max(0f, _trauma - shakeDecay * Time.deltaTime);
+            }
+
+            transform.position = smoothed + _lastShakeOffset;
         }
+
+        Vector3 _lastShakeOffset;
     }
 }

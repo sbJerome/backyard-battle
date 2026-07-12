@@ -47,6 +47,10 @@ namespace BB.Simulation
         public int hitstopTicks;
         public int intangibleTicks;
 
+        /// <summary>Buffered attack input pressed during an attack: 0 none, 1 attack, 2 special.</summary>
+        public byte bufferedAttack;
+        public int bufferTicks;
+
         /// <summary>Previous tick's input, kept for edge detection.</summary>
         public InputSnapshot previousInput;
 

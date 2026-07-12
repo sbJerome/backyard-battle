@@ -21,15 +21,15 @@ MonoBehaviour:
   gravity: 70
   maxFallSpeed: 16
   fastFallSpeed: 24
-  walkSpeed: 3
-  runSpeed: 5.5
-  groundAcceleration: 60
-  groundFriction: 40
-  airSpeed: 3.5
-  airAcceleration: 30
+  walkSpeed: 4
+  runSpeed: 7.5
+  groundAcceleration: 120
+  groundFriction: 70
+  airSpeed: 5.2
+  airAcceleration: 48
   extraJumps: 1
-  jumpVelocity: 13
-  airJumpVelocity: 11.7
+  jumpVelocity: 14
+  airJumpVelocity: 12.599999
   capsuleRadius: 0.35
   capsuleHeight: 0.8
   attacks:

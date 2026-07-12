@@ -21,12 +21,12 @@ MonoBehaviour:
   gravity: 60
   maxFallSpeed: 14
   fastFallSpeed: 22
-  walkSpeed: 4
-  runSpeed: 7
-  groundAcceleration: 60
-  groundFriction: 40
-  airSpeed: 5
-  airAcceleration: 30
+  walkSpeed: 4.5
+  runSpeed: 7.5
+  groundAcceleration: 120
+  groundFriction: 70
+  airSpeed: 5.5
+  airAcceleration: 48
   extraJumps: 1
   jumpVelocity: 14
   airJumpVelocity: 12.599999

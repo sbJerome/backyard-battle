@@ -18,7 +18,9 @@ namespace BB.Simulation
         public const float TickDelta = 1f / TickRate;
         const float GroundSnapDistance = 0.08f;
         const float SkinWidth = 0.02f;
-        const int RespawnIntangibleTicks = 120;
+        const int RespawnIntangibleTicks = 60;
+        /// <summary>Ticks an attack press stays buffered during a current attack (SF-style chaining).</summary>
+        const int AttackBufferTicks = 12;
 
         public FighterDefinition Definition { get; private set; }
         public int PlayerIndex { get; private set; }
@@ -150,6 +152,14 @@ namespace BB.Simulation
             var attack = CurrentAttack;
             if (attack == null) { SetState(FighterStateId.Idle); return; }
 
+            // Buffer presses landed mid-attack so mashing chains instead of whiffing.
+            if (input.WasPressed(FighterButtons.Attack, State.previousInput))
+            { State.bufferedAttack = 1; State.bufferTicks = AttackBufferTicks; }
+            else if (input.WasPressed(FighterButtons.Special, State.previousInput))
+            { State.bufferedAttack = 2; State.bufferTicks = AttackBufferTicks; }
+            if (State.bufferTicks > 0) State.bufferTicks--;
+            else State.bufferedAttack = 0;
+
             // Attacks keep momentum but no steering (demo simplification;
             // aerial drift during attacks lands with M1 tuning).
             ApplyGravity(Definition);
@@ -160,6 +170,16 @@ namespace BB.Simulation
             if (State.stateTicks >= attack.TotalTicks)
             {
                 State.attackIndex = -1;
+
+                // Fire the buffered follow-up the same tick recovery ends.
+                if (State.bufferedAttack != 0)
+                {
+                    var next = Definition.FindAttack(MapAttackInput(input, State.bufferedAttack == 2));
+                    State.bufferedAttack = 0;
+                    State.bufferTicks = 0;
+                    if (next != null) { BeginAttack(next); return; }
+                }
+
                 SetState(State.grounded ? FighterStateId.Idle : FighterStateId.Airborne);
             }
         }

@@ -45,12 +45,12 @@ namespace BB.Editor
 
             var chipPrefab = CreateGreyboxFighterPrefab("Chip", material, new Color(0.55f, 0.53f, 0.5f), 0.35f, 0.8f);
             var chip = CreateFighter("Chip", "The Pebble", chipPrefab,
-                weight: 130f, walk: 3f, run: 5.5f, air: 3.5f, jumpVel: 13f, gravity: 70f, maxFall: 16f, fastFall: 24f,
+                weight: 130f, walk: 4f, run: 7.5f, air: 5.2f, jumpVel: 14f, gravity: 70f, maxFall: 16f, fastFall: 24f,
                 radius: 0.35f, height: 0.8f, attacks: new[] { chipJab, chipTilt, chipUpTilt });
 
             var dummyPrefab = CreateGreyboxFighterPrefab("Dummy", material, new Color(0.8f, 0.4f, 0.35f), 0.35f, 1.0f);
             var dummy = CreateFighter("Dummy", "Training Dummy", dummyPrefab,
-                weight: 100f, walk: 4f, run: 7f, air: 5f, jumpVel: 14f, gravity: 60f, maxFall: 14f, fastFall: 22f,
+                weight: 100f, walk: 4.5f, run: 7.5f, air: 5.5f, jumpVel: 14f, gravity: 60f, maxFall: 14f, fastFall: 22f,
                 radius: 0.35f, height: 1.0f, attacks: new[] { chipJab });
 
             var stage = CreateStageDefinition();
@@ -166,6 +166,10 @@ namespace BB.Editor
             f.capsuleRadius = radius;
             f.capsuleHeight = height;
             f.attacks = attacks;
+            // Brawler-feel accelerations: near-instant direction changes on the ground.
+            f.groundAcceleration = run * 16f;
+            f.groundFriction = 70f;
+            f.airAcceleration = 48f;
             EditorUtility.SetDirty(f);
             return f;
         }
@@ -314,6 +318,7 @@ namespace BB.Editor
             starter.dummyCount = 1;
             starter.controls = controls;
             matchGo.AddComponent<SimDebugOverlay>();
+            matchGo.AddComponent<MatchJuice>();
             var hud = matchGo.AddComponent<MatchHud>();
             hud.match = match;
 
