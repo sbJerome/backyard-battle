@@ -3,6 +3,20 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.8 — 2026-07-11
+
+- **First pickup: the Acorn** (Power Stone pillar made real). Spawns center
+  stage; walk over it to grab (auto-pickup); Attack throws it as a fast arcing
+  projectile through the standard hit pipeline (hitstop/shake/knockback apply);
+  getting launched knocks it loose; hit or miss, it respawns in 8s
+- `PickupDefinition` SO + `PickupItem` sim component (tick-driven, no physics
+  components, deterministic — server-safe for M4); `IHeldItem` seam on
+  FighterController: Attack throws while holding, Specials still work
+- Bots understand pickups: detour to grab a closer free item, then face the
+  target and throw from up to 9 units away
+- Tests: pickup suite (grab, throw replaces attack, thrown hit + respawn,
+  drop on hit) — 26 total
+
 ## v0.1.7 — 2026-07-11
 
 - Juice: screenshake on hit (Perlin trauma shake on BrawlCamera, scaled by

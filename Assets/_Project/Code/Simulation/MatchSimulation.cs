@@ -18,10 +18,12 @@ namespace BB.Simulation
 
         readonly List<FighterController> _fighters = new();
         readonly List<IInputSource> _inputs = new();
+        readonly List<PickupItem> _pickups = new();
 
         public int Tick { get; private set; }
         public bool Finished { get; private set; }
         public IReadOnlyList<FighterController> Fighters => _fighters;
+        public IReadOnlyList<PickupItem> Pickups => _pickups;
 
         public event System.Action<FighterController> OnKO;
         /// <summary>Raised once, with the surviving fighters in placement order (winner first).</summary>
@@ -38,6 +40,12 @@ namespace BB.Simulation
         {
             _fighters.Add(fighter);
             _inputs.Add(input);
+        }
+
+        public void RegisterPickup(PickupItem pickup)
+        {
+            _pickups.Add(pickup);
+            pickup.Register(this);
         }
 
         /// <summary>Advance the whole match one tick. Call from FixedUpdate at 60 Hz.</summary>
@@ -57,6 +65,9 @@ namespace BB.Simulation
                 if (_fighters[i].State.stateId == FighterStateId.Attack)
                     Hits.ResolveTick(_fighters[i]);
             }
+
+            for (int i = 0; i < _pickups.Count; i++)
+                _pickups[i].TickPickup();
 
             CheckBlastZones();
             CheckMatchEnd();

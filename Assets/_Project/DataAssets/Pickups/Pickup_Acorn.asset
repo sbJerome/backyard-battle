@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f6f686eae1b9c239227ae287e5a7a3, type: 3}
+  m_Name: Pickup_Acorn
+  m_EditorClassIdentifier: 
+  id: acorn
+  displayName: Acorn
+  flavor: Nature's fastball. The squirrels want it back.
+  throwSpeed: 15
+  throwUpward: 3
+  flightGravity: 25
+  radius: 0.25
+  damage: 9
+  angleDegrees: 40
+  baseKnockback: 55
+  knockbackGrowth: 110
+  hitstopTicks: 5
+  respawnSeconds: 8

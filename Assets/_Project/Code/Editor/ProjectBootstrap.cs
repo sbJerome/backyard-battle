@@ -54,13 +54,14 @@ namespace BB.Editor
                 radius: 0.35f, height: 1.0f, attacks: new[] { chipJab });
 
             var stage = CreateStageDefinition();
+            var acorn = CreateAcornPickup();
             CreateRoster(chip, dummy);
             CreateRewardTable();
 
             CreateBootScene();
             CreatePlaceholderScene("MainMenu");
             CreatePlaceholderScene("Lobby");
-            CreateGreyboxStageScene(stage, chip, dummy, controls, material);
+            CreateGreyboxStageScene(stage, chip, dummy, controls, material, acorn);
 
             EditorBuildSettings.scenes = new[]
             {
@@ -194,6 +195,26 @@ namespace BB.Editor
             return s;
         }
 
+        static PickupDefinition CreateAcornPickup()
+        {
+            var p = LoadOrCreate<PickupDefinition>($"{DataDir}/Pickups/Pickup_Acorn.asset");
+            p.id = "acorn";
+            p.displayName = "Acorn";
+            p.flavor = "Nature's fastball. The squirrels want it back.";
+            p.throwSpeed = 15f;
+            p.throwUpward = 3f;
+            p.flightGravity = 25f;
+            p.radius = 0.25f;
+            p.damage = 9f;
+            p.angleDegrees = 40f;
+            p.baseKnockback = 55f;
+            p.knockbackGrowth = 110f;
+            p.hitstopTicks = 5;
+            p.respawnSeconds = 8f;
+            EditorUtility.SetDirty(p);
+            return p;
+        }
+
         static void CreateRoster(params FighterDefinition[] fighters)
         {
             var roster = LoadOrCreate<FighterRoster>($"{DataDir}/Roster.asset");
@@ -283,7 +304,7 @@ namespace BB.Editor
         }
 
         static void CreateGreyboxStageScene(StageDefinition stage, FighterDefinition player, FighterDefinition dummy,
-                                            InputActionAsset controls, Material material)
+                                            InputActionAsset controls, Material material, PickupDefinition acorn)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -321,6 +342,21 @@ namespace BB.Editor
             matchGo.AddComponent<MatchJuice>();
             var hud = matchGo.AddComponent<MatchHud>();
             hud.match = match;
+
+            // Contested center-stage acorn (the Power Stone moment).
+            var pickupGo = new GameObject("Pickup_Acorn");
+            pickupGo.transform.position = new Vector3(0f, 0.6f, 0f);
+            var pickup = pickupGo.AddComponent<PickupItem>();
+            pickup.definition = acorn;
+            var acornVis = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            acornVis.name = "Visual";
+            Object.DestroyImmediate(acornVis.GetComponent<Collider>());
+            acornVis.transform.SetParent(pickupGo.transform, false);
+            acornVis.transform.localScale = Vector3.one * 0.45f;
+            var acornMat = new Material(material) { color = new Color(0.5f, 0.32f, 0.12f) };
+            AssetDatabase.CreateAsset(acornMat, $"{SettingsDir}/Acorn_Mat.mat");
+            acornVis.GetComponent<MeshRenderer>().sharedMaterial = acornMat;
+            pickup.visual = acornVis;
 
             EditorSceneManager.SaveScene(scene, $"{ScenesDir}/Stage_Greybox.unity");
         }

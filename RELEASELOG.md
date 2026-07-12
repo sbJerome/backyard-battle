@@ -2,6 +2,7 @@
 
 | Version | Date | Milestone | Notes |
 |---------|------|-----------|-------|
+| v0.1.8 | 2026-07-11 | M1 | Acorn pickup: grab/throw/drop loop, bot item play — first Power Stone element live. |
 | v0.1.7 | 2026-07-11 | M1 | Screenshake+hitsparks, input buffering, faster movement, brawler design pivot in GDD. |
 | v0.1.6 | 2026-07-11 | M1 | Bots fight back (SimpleBotBrain + aggression); knockback launch speed retuned ~3x softer. |
 | v0.1.5 | 2026-07-11 | M1 | First playtest fixes: attacks actually come out; repeat-hit dedupe corrected; motor regression tests. |

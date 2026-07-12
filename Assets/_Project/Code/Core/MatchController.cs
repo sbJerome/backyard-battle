@@ -57,6 +57,10 @@ namespace BB.Core
                 if (source is ISimAwareInput aware) aware.Bind(fighter, Simulation);
             }
 
+            // Pickups placed in the stage scene join the simulation.
+            foreach (var pickup in FindObjectsByType<PickupItem>(FindObjectsSortMode.None))
+                Simulation.RegisterPickup(pickup);
+
             _countdownTicks = Mathf.RoundToInt(countdownSeconds * FighterController.TickRate);
             SetPhase(MatchPhase.Countdown);
         }

@@ -35,6 +35,9 @@ namespace BB.Simulation
         /// <summary>Raised once per landed hit, after state is applied. Presentation and netcode subscribe.</summary>
         public event System.Action<HitEvent> OnHit;
 
+        /// <summary>Raise a hit that resolved outside the hitbox query path (pickups, hazards).</summary>
+        public void Raise(in HitEvent e) => OnHit?.Invoke(e);
+
         /// <summary>Call once per tick per attacking fighter.</summary>
         public void ResolveTick(FighterController attacker)
         {

@@ -67,6 +67,37 @@ namespace BB.Simulation
 
             Vector2 to = target.State.position - s.position;
 
+            // --- pickups: grab a nearby free item; throw a held one ---
+            if (_self.HeldItem == null)
+            {
+                PickupItem wanted = null;
+                float bestPickup = float.MaxValue;
+                for (int i = 0; i < _sim.Pickups.Count; i++)
+                {
+                    var p = _sim.Pickups[i];
+                    if (p.CurrentState != PickupItem.PickupState.Available) continue;
+                    float d = (p.Position - s.position).sqrMagnitude;
+                    if (d < bestPickup) { bestPickup = d; wanted = p; }
+                }
+                // Detour for the item when it's closer than the opponent.
+                if (wanted != null && bestPickup < to.sqrMagnitude)
+                {
+                    Vector2 toPickup = wanted.Position - s.position;
+                    snap.moveX = Mathf.Abs(toPickup.x) > 0.3f ? Mathf.Sign(toPickup.x) : 0f;
+                    if (toPickup.y > 1.5f && s.grounded && (_tick / 8) % 5 == 0)
+                        snap.held |= FighterButtons.Jump;
+                    return snap;
+                }
+            }
+            else if (Mathf.Abs(to.y) < 1.5f && Mathf.Abs(to.x) < 9f && _tick >= _nextAttackTick)
+            {
+                // Face the target and let it fly.
+                snap.moveX = Mathf.Sign(to.x);
+                snap.held |= FighterButtons.Attack;
+                _nextAttackTick = _tick + Mathf.RoundToInt(Mathf.Lerp(90f, 30f, aggression));
+                return snap;
+            }
+
             // --- approach ---
             if (Mathf.Abs(to.x) > 0.9f)
                 snap.moveX = Mathf.Sign(to.x);

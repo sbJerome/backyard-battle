@@ -26,6 +26,9 @@ namespace BB.Simulation
         public int PlayerIndex { get; private set; }
         public FighterState State;
 
+        /// <summary>Pickup currently held; Attack throws it instead of attacking.</summary>
+        public IHeldItem HeldItem;
+
         [Tooltip("Layers the motor collides with (stage geometry).")]
         public LayerMask groundMask = ~0;
 
@@ -134,6 +137,14 @@ namespace BB.Simulation
                 input.WasPressed(FighterButtons.Special, State.previousInput))
             {
                 bool special = input.WasPressed(FighterButtons.Special, State.previousInput);
+
+                // Holding a pickup: Attack throws it (Specials still work normally).
+                if (!special && HeldItem != null)
+                {
+                    HeldItem.ThrowFrom(this, in input);
+                    return;
+                }
+
                 var attack = def.FindAttack(MapAttackInput(input, special));
                 if (attack != null)
                 {
@@ -231,6 +242,8 @@ namespace BB.Simulation
         public void ApplyHit(in HitboxWindow hit, int attackerFacing)
         {
             if (State.intangibleTicks > 0 || State.stateId == FighterStateId.Dead) return;
+
+            HeldItem?.Drop(); // getting launched knocks your toy loose
 
             State.percent = Mathf.Min(999f, State.percent + hit.damage);
             float kb = KnockbackFormula.Knockback(State.percent, hit.damage, Definition.weight,
