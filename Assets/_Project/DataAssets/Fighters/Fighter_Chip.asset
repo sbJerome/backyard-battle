@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f24390cefb151a5be1472b7aaf190a, type: 3}
+  m_Name: Fighter_Chip
+  m_EditorClassIdentifier: 
+  id: chip
+  displayName: Chip
+  tagline: The Pebble
+  icon: {fileID: 0}
+  fighterPrefab: {fileID: 4944529255754558778, guid: 0de806a1e8076795b92719649a70e11d, type: 3}
+  weight: 130
+  gravity: 70
+  maxFallSpeed: 16
+  fastFallSpeed: 24
+  walkSpeed: 3
+  runSpeed: 5.5
+  groundAcceleration: 60
+  groundFriction: 40
+  airSpeed: 3.5
+  airAcceleration: 30
+  extraJumps: 1
+  jumpVelocity: 13
+  airJumpVelocity: 11.7
+  capsuleRadius: 0.35
+  capsuleHeight: 0.8
+  attacks:
+  - {fileID: 11400000, guid: 25d5842ddd6191286b106ead6741e842, type: 2}
+  - {fileID: 11400000, guid: 3f86bb99266cfc3d3b97da0ec4336f76, type: 2}
+  - {fileID: 11400000, guid: 0335bf0a6ada2af44ba6db46c2ef16da, type: 2}
+  accessoryAnchor: AccessoryAnchor
+  skins: []
+  rumbleDensity: 1
+  rumbleRestitution: 0.1

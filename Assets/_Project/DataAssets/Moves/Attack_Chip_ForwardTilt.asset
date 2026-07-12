@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd2dd3db47c8e0ab83cca27cc4deadc, type: 3}
+  m_Name: Attack_Chip_ForwardTilt
+  m_EditorClassIdentifier: 
+  id: chip_forwardtilt
+  displayName: Chip ForwardTilt
+  input: 1
+  startupTicks: 8
+  activeTicks: 4
+  recoveryTicks: 14
+  hitboxes:
+  - startTick: 8
+    endTick: 12
+    socket: 
+    offset: {x: 0.8, y: 0.55, z: 0}
+    radius: 0.5
+    length: 0.4
+    damage: 11
+    angleDegrees: 40
+    baseKnockback: 40
+    knockbackGrowth: 105
+    hitstopTicks: 6
+    hitSfxId: 
+    hitVfxId: 
+  animationState: 

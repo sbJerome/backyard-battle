@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2be331940e51bd99c2188d39671244, type: 3}
+  m_Name: Stage_Greybox
+  m_EditorClassIdentifier: 
+  id: greybox
+  displayName: Greybox Yard
+  tagline: Where fighters are born. Never ships.
+  thumbnail: {fileID: 0}
+  sceneName: Stage_Greybox
+  blastZone:
+    serializedVersion: 2
+    x: -20
+    y: -10
+    width: 40
+    height: 26
+  cameraBounds:
+    serializedVersion: 2
+    x: -16
+    y: -5
+    width: 32
+    height: 17
+  spawnPoints:
+  - {x: -3, y: 1}
+  - {x: 3, y: 1}
+  - {x: -6, y: 4.5}
+  - {x: 6, y: 4.5}
+  - {x: -1.5, y: 1}
+  - {x: 1.5, y: 1}
+  respawnPoint: {x: 0, y: 6}
+  hazards: []
+  tournamentLegal: 1
+  musicId: 

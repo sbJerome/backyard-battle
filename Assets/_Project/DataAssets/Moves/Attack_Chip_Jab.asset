@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd2dd3db47c8e0ab83cca27cc4deadc, type: 3}
+  m_Name: Attack_Chip_Jab
+  m_EditorClassIdentifier: 
+  id: chip_jab
+  displayName: Chip Jab
+  input: 0
+  startupTicks: 4
+  activeTicks: 3
+  recoveryTicks: 8
+  hitboxes:
+  - startTick: 4
+    endTick: 7
+    socket: 
+    offset: {x: 0.55, y: 0.45, z: 0}
+    radius: 0.4
+    length: 0
+    damage: 6
+    angleDegrees: 55
+    baseKnockback: 25
+    knockbackGrowth: 90
+    hitstopTicks: 4
+    hitSfxId: 
+    hitVfxId: 
+  animationState: 

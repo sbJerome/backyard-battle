@@ -3,6 +3,17 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.4 — 2026-07-11
+
+- Unity 6000.0.79f1 installed (headless via Hub under Xvfb) with Linux IL2CPP,
+  Linux Dedicated Server, and Windows modules; Personal license activated
+  headlessly via the bundled Licensing Client (`--activate-ulf`)
+- `ProjectBootstrap.Run` executed: generated Boot/MainMenu/Lobby/Stage_Greybox
+  scenes, Fighter/Hurtbox/Stage layers, URP pipeline assets, Chip + Dummy
+  fighter definitions/prefabs/materials, three Chip attacks, stage definition,
+  roster, reward table, build settings — all committed with .meta files
+- EditMode test suite green: 14/14 (knockback formula, award ledger)
+
 ## v0.1.3 — 2026-07-11
 
 - Editor bootstrap: `BB.Editor.ProjectBootstrap.Run` generates layers

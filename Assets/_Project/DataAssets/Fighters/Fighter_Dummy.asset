@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f24390cefb151a5be1472b7aaf190a, type: 3}
+  m_Name: Fighter_Dummy
+  m_EditorClassIdentifier: 
+  id: dummy
+  displayName: Dummy
+  tagline: Training Dummy
+  icon: {fileID: 0}
+  fighterPrefab: {fileID: 7121827276803971893, guid: 3b1f260ed25f56738a693942f29cf11f, type: 3}
+  weight: 100
+  gravity: 60
+  maxFallSpeed: 14
+  fastFallSpeed: 22
+  walkSpeed: 4
+  runSpeed: 7
+  groundAcceleration: 60
+  groundFriction: 40
+  airSpeed: 5
+  airAcceleration: 30
+  extraJumps: 1
+  jumpVelocity: 14
+  airJumpVelocity: 12.599999
+  capsuleRadius: 0.35
+  capsuleHeight: 1
+  attacks:
+  - {fileID: 11400000, guid: 25d5842ddd6191286b106ead6741e842, type: 2}
+  accessoryAnchor: AccessoryAnchor
+  skins: []
+  rumbleDensity: 1
+  rumbleRestitution: 0.1
