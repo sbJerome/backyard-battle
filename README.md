@@ -1,6 +1,6 @@
 # Backyard Battle
 
-**v0.1.5**
+**v0.1.6**
 
 A multiplayer party platform brawler set in **The Great Backyonder** — the Finch
 family backyard as seen from bug's-eye view. Eight-year-old **Max Finch** pits

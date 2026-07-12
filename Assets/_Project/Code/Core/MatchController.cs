@@ -52,7 +52,9 @@ namespace BB.Core
                 if (fighter == null) fighter = go.AddComponent<FighterController>();
                 fighter.Init(slot.Fighter, slot.Index, stage.GetSpawnPoint(i), (byte)stocks);
 
-                Simulation.AddFighter(fighter, slot.InputSource ?? new BotInputSource());
+                var source = slot.InputSource ?? new BotInputSource();
+                Simulation.AddFighter(fighter, source);
+                if (source is ISimAwareInput aware) aware.Bind(fighter, Simulation);
             }
 
             _countdownTicks = Mathf.RoundToInt(countdownSeconds * FighterController.TickRate);

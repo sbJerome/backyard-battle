@@ -18,6 +18,9 @@ namespace BB.Core
         public FighterDefinition player1Fighter;
         public FighterDefinition dummyFighter;
         [Range(0, 5)] public int dummyCount = 1;
+        [Tooltip("Bots chase and attack; off = inert training dummies.")]
+        public bool dummiesFightBack = true;
+        [Range(0f, 1f)] public float botAggression = 0.6f;
         public InputActionAsset controls;
 
         void Start()
@@ -48,7 +51,9 @@ namespace BB.Core
                 slots.Add(new PlayerSlot(i + 1)
                 {
                     Fighter = dummyFighter != null ? dummyFighter : player1Fighter,
-                    InputSource = new BotInputSource(),
+                    InputSource = dummiesFightBack
+                        ? new SimpleBotBrain { aggression = botAggression }
+                        : new BotInputSource(),
                 });
             }
 

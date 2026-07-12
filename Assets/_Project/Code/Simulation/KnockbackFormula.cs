@@ -8,8 +8,12 @@ namespace BB.Simulation
     /// </summary>
     public static class KnockbackFormula
     {
-        /// <summary>World-units-per-second of launch speed per knockback unit.</summary>
-        public const float LaunchSpeedPerKb = 0.35f;
+        /// <summary>
+        /// World-units-per-second of launch speed per knockback unit.
+        /// Tuned so a 0% jab (~44 kb) nudges at ~5 u/s and a 100% forward-tilt
+        /// (~165 kb) launches at ~18 u/s — a kill near the edge, not from center.
+        /// </summary>
+        public const float LaunchSpeedPerKb = 0.11f;
         /// <summary>Hitstun ticks per knockback unit.</summary>
         public const float HitstunPerKb = 0.4f;
         /// <summary>The classic "Sakurai angle" sentinel value.</summary>

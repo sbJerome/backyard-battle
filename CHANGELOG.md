@@ -3,6 +3,19 @@
 All notable changes to Backyard Battle. Versioning: Major.Minor.SubMinor — bump
 sub-minor on every merged change.
 
+## v0.1.6 — 2026-07-11
+
+- Bots fight back: new `SimpleBotBrain` (chases nearest opponent, mixes jabs
+  and forward tilts on an aggression-scaled cadence, jumps at higher targets,
+  recovers when knocked off) — deterministic, sim-state-only, server-safe.
+  `DevMatchStarter.dummiesFightBack` toggle (default on) + aggression slider
+- Knockback retuned: launch speed per kb unit 0.35 → 0.11 — a 0% jab nudges
+  (~5 u/s) instead of launching harder than a jump; a 100% forward tilt kills
+  near the edge (~18 u/s), not from center stage
+- `ISimAwareInput`: input sources that need sim visibility get bound to their
+  fighter after spawn by MatchController
+- Tests: SimpleBotBrain suite (approach, in-range attack, unbound neutral)
+
 ## v0.1.5 — 2026-07-11
 
 - Fix: pressing Attack did nothing — `TickMovement` unconditionally reset the
